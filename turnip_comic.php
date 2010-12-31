@@ -2,12 +2,7 @@
 
 include('turnip_utils.php');
 
-$id = $_GET['id'];
-if (!is_int($id)) {
-    // go to hell >:(
-    header('HTTP/1.0 403 Forbidden');
-    exit;
-}
+$id = (int) $_GET['id'];
 
 $link = mysql_connect(common_config('database','host'),
     common_config('database','user'),
