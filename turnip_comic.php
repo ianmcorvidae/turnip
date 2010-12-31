@@ -43,7 +43,6 @@ if (common_php_date($line['date']) > time())
     $file = common_config('comic', 'directory') . '/' . $line['filename'];
     if (file_exists($file)) {
         header('Content-Type: application/octet-stream');
-        header('Content-Disposition: inline; filename='.basename($file));
         header('Content-Transfer-Encoding: binary');
         header('Expires: 0');
         header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
