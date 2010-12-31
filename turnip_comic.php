@@ -45,7 +45,7 @@ if (common_php_date($line['date']) > now())
 {
     header('HTTP/1.0 403 Forbidden');
 } else {
-    $file = $line['filename'];
+    $file = common_config('comic', 'directory') . '/' . $line['filename'];
     if (file_exists($file)) {
         header('Content-Description: File Transfer');
         header('Content-Type: application/octet-stream');
