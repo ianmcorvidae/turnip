@@ -7,19 +7,19 @@ include(TURNIPDIR . '/turnip_config.php');
 
 function common_config($main,$sub)
 {
-global $config;
-return (array_key_exists($main,$config) && 
-        array_key_exists($sub,$config[$main]) ? $config[$main][$sub] : false;
+    global $config;
+    return (array_key_exists($main,$config) && 
+            array_key_exists($sub,$config[$main])) ? $config[$main][$sub] : false;
 }
 
 function common_sql_date($datetime)
 {
-return strftime('%Y-%m-%d',$datetime);
+    return strftime('%Y-%m-%d',$datetime);
 }
 
 function common_php_date($datetime)
 {
-return strtotime($datetime);
+    return strtotime($datetime);
 }
 
 ?>
