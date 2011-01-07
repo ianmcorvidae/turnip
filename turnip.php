@@ -9,12 +9,25 @@ function displaycomic($id)
 }
 
 // COMIC NAVIGATION
-function comicnav ()
+function nav_first($id)
+{
+
+}
+
+function nav_prev($id)
+{
+}
+
+function nav_next($id)
+{
+}
+
+function nav_last($id)
 {
 }
 
 // NEWSPOSTS
-function newspost()
+function newspost($id)
 {
 }
 
