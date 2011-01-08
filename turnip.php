@@ -4,29 +4,20 @@ include('turnip_utils.php');
 
 // DISPLAY COMICS
 
-function displaycomic($id)
+function displaycomic($id = 'current')
 {
+
+	if ($id=='current'){
+            $current = nav_currentid();
+        } else {
+           $current = $id;
+        }
+        printf(common_config('comic','location'), $current);
 }
 
 // COMIC NAVIGATION
 
-//first
-function nav_first($id)
-{
-printf(common_config('comic','current'), 1);
-}
-
-//previous
-function nav_prev($id)
-{
-if($id==1){echo '#';} 
-
-else
-{printf(common_config('comic','current'), $id-1);}
-}
-
-//next
-function nav_next($id)
+function nav_currentid()
 {
 $link = mysql_connect(common_config('database','host'),
     common_config('database','user'),
@@ -59,23 +50,58 @@ if (mysql_num_rows($result) == 0)
 }
 
 $line = mysql_fetch_assoc($result);
+return $line['id'];
+}
 
-if($id==$line['id']){echo '#';} 
+//first
+function nav_first($id = 'current')
+{
+    printf(common_config('comic','previous'), 1);
+}
 
-else
-{printf(common_config('comic','current'), $id+1);}
+//previous
+function nav_prev($id = 'current')
+{
+    if ($id==1) 
+    {
+        echo '#';
+    } else {
+	if ($id=='current'){
+            $current = nav_currentid();
+        } else {
+           $current = $id;
+        }
+        printf(common_config('comic','previous'), $current-1);
+    }
+}
+
+//next
+function nav_next($id = 'current')
+{
+    if ($id == 'current')
+    {
+        echo '#';
+        return;
+    }
+
+    if($id==nav_currentid())
+    {
+        echo '#';
+    } else {
+        printf(common_config('comic','previous'), $id+1);
+    }
 }
 
 //current
-function nav_last($id)
+function nav_last($id = 'current')
 {
-echo common_config('comic','current');
+    echo common_config('comic','current');
 }
 
 
 
 // NEWSPOSTS
-function newspost($id)
+function newspost($id = 'current')
 {
 }
 
