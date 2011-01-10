@@ -45,11 +45,12 @@ if(!$result)
 
 if (mysql_num_rows($result) == 0)
 {
-    header('HTTP/1.0 404 Not Found');
+    header('HTTP/1.0 500 Internal Server Error');
     exit;
 }
 
 $line = mysql_fetch_assoc($result);
+mysql_free_result($result);
 return $line['id'];
 }
 
@@ -103,6 +104,39 @@ function nav_last($id = 'current')
 // NEWSPOSTS
 function newspost($id = 'current')
 {
+	if ($id=='current'){
+            $current = nav_currentid();
+        } else {
+           $current = $id;
+        }
+
+$link = mysql_connect(common_config('database','host'),
+    common_config('database','user'),
+    common_config('database','password'));
+
+if (!$link)
+{
+    header('HTTP/1.0 500 Internal Server Error');
+    exit;
+}
+
+if (!mysql_select_db(common_config('database','name')))
+{
+    header('HTTP/1.0 500 Internal Server Error');
+    exit;
+}
+$query = "SELECT newspost FROM newspost WHERE id = $current";
+$result = mysql_query($query);
+
+if(!$result)
+{
+    header('HTTP/1.0 500 Internal Server Error');
+    exit;
+}
+
+$line = mysql_fetch_assoc($result);
+echo stripslashes($line['newspost']);
+mysql_free_result($result);
 }
 
 ?>
