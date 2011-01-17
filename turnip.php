@@ -34,7 +34,7 @@ if (!mysql_select_db(common_config('database','name')))
     header('HTTP/1.0 500 Internal Server Error');
     exit;
 }
-$query = "SELECT id FROM comic WHERE date <= '" . common_sql_date(time()) . "' LIMIT 1 ORDER BY id DESC;";
+$query = "SELECT id FROM comic WHERE date <= '" . common_sql_date(time()) . "'ORDER BY id DESC LIMIT 1;";
 $result = mysql_query($query);
 
 if(!$result)
@@ -63,15 +63,14 @@ function nav_first($id = 'current')
 //previous
 function nav_prev($id = 'current')
 {
-    if ($id==1) 
-    {
+    if ($id=='current'){
+        $current = nav_currentid();
+    } else {
+        $current = $id;
+    }
+    if ($current==1){
         echo '#';
     } else {
-	if ($id=='current'){
-            $current = nav_currentid();
-        } else {
-           $current = $id;
-        }
         printf(common_config('comic','previous'), $current-1);
     }
 }
