@@ -1,0 +1,11 @@
+<?php
+$config['database']['host'] = 'localhost';
+$config['database']['user'] = 'turnip_user';
+$config['database']['password'] = 'super_secure_password';
+$config['database']['name'] = 'turnip';
+
+$config['comic']['directory'] = '/home/blargh/comics';
+$config['comic']['location'] = '/turnip/turnip_comic.php?id=%s';
+$config['comic']['current'] = '/index.php';
+$config['comic']['previous'] = '/comic.php?id=%s';
+?>
