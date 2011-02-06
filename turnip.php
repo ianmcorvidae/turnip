@@ -87,7 +87,7 @@ class Comic
     /***********************************
      * Print me my newspost, kind sir! *
      ***********************************/
-    public function newspost()
+    public function display_newspost()
     {
         if (is_null($this->newspost))
         {
@@ -96,7 +96,7 @@ class Comic
         echo $this->newspost;
     }
 
-    public function alt_title()
+    public function display_alt_title()
     {
         if (is_null($this->alt_title))
         {
