@@ -4,6 +4,10 @@ INSTALL
 =======
 Stick the directory of files somewhere web-accessible, and then copy turnip_config.php.example to turnip_config.php and edit as appropriate. See the section below on configuration options for details of what each option should contain.
 
+Set up your MySQL (currently the only supported database, sorry D:), after creating a database, by running turnip_setup.sql or otherwise creating a table to the following specification:
+
+CREATE TABLE comic (id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(255), newspost TEXT, alt_title TEXT, filename VARCHAR(255) NOT NULL, date CHAR(10) DEFAULT '0000-00-00');
+
 CONFIGURATION OPTIONS
 =====================
 Each configuration option is of the form $config[section][property] = value;
