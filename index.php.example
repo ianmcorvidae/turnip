@@ -1,0 +1,17 @@
+<html>
+<body>
+<?php include('./turnip/turnip.php'); 
+      $comic = new Comic(); ?>
+<center>
+<img src="<?php $comic->display(); ?>" title="<?php $comic->display_alt_title(); ?>" />
+<div>
+<a href="<?php $comic->nav_first(); ?>">First</a>
+<a href="<?php $comic->nav_prev(); ?>">Previous</a>
+<a href="<?php $comic->nav_next(); ?>">Next</a>
+<a href="<?php $comic->nav_last(); ?>">Current</a>
+</div>
+<p>
+<?php $comic->display_newspost(); ?>
+</p>
+</body>
+</html>
