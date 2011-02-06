@@ -1,0 +1,6 @@
+deny from all
+
+<Files turnip_comic.php>
+	order allow,deny
+	allow from all
+</Files>
