@@ -119,7 +119,7 @@ class Comic
         if (!$link) { exit; }
         if (!mysql_select_db(common_config('database','name'))) { exit; }
 
-        $query = "SELECT newspost, alt_title FROM comic WHERE id = $current";
+        $query = "SELECT newspost, alt_title FROM comic WHERE id = $this->id";
         $result = mysql_query($query);
 
         // debug log? 
