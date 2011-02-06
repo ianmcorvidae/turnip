@@ -91,7 +91,7 @@ class Comic
     {
         if (is_null($this->newspost))
         {
-            $this->fetch_newspost_table();
+            $this->fetch();
         }
         echo $this->newspost;
     }
@@ -100,7 +100,7 @@ class Comic
     {
         if (is_null($this->alt_title))
         {
-            $this->fetch_newspost_table();
+            $this->fetch();
         }
         echo $this->alt_title;
     }
@@ -109,7 +109,7 @@ class Comic
      * If you don't already got it, *
      * get it from the database!    *
      ********************************/
-    public function fetch_newspost_table()
+    public function fetch()
     {
         $link = mysql_connect(common_config('database','host'),
             common_config('database','user'),
@@ -119,7 +119,7 @@ class Comic
         if (!$link) { exit; }
         if (!mysql_select_db(common_config('database','name'))) { exit; }
 
-        $query = "SELECT newspost, alt_title FROM newspost WHERE id = $current";
+        $query = "SELECT newspost, alt_title FROM comic WHERE id = $current";
         $result = mysql_query($query);
 
         // debug log? 
