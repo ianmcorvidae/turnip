@@ -129,10 +129,13 @@ class Comic
         {
             $this->newspost = '';
             $this->alt_title = '';
-        } else {
+        } else if ($this->id <= $this->current) {
             $line = mysql_fetch_assoc($result);
             $this->newspost = stripslashes($line['newspost']);
             $this->alt_title = stripslashes($line['alt_title']);
+        } else {
+            $this->newspost = '';
+            $this->alt_title = '';
         }
 
         mysql_free_result($result);
