@@ -1,4 +1,8 @@
 <?php
+# Copyright © 2010-2011, Ian McEwen and Eliza Gebow
+# All rights reserved.
+#
+# See the file LICENSE for further conditions
 
 // TURNIPDIR is where we keep ALLLLLL the files
 define('TURNIPDIR', dirname(__FILE__));
