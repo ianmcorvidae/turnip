@@ -8,6 +8,13 @@ Set up your MySQL (currently the only supported database, sorry D:), after creat
 
 CREATE TABLE comic (id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(255), newspost TEXT, alt_title TEXT, filename VARCHAR(255) NOT NULL, date CHAR(10) DEFAULT '0000-00-00');
 
+USAGE
+=====
+When you'd like to upload a comic:
+1. Upload the image file to your comic directory
+2. Insert a line into the database table with everything you want, using whichever tool you like. Using SQL, something like: INSERT INTO comic (name, newspost, alt_title, filename, date) VALUES ('some awesome name', 'hey look, a newspost', 'here\'s what\'ll go in the title tag', 'comic0567.png', '2099-07-18');
+3. Profit!
+
 CONFIGURATION OPTIONS
 =====================
 Each configuration option is of the form $config[section][property] = value;

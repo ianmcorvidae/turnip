@@ -14,6 +14,7 @@ class Comic
     public $current = null;
     public $newspost = null;
     public $alt_title = null;
+    public $name = null;
 
     function __construct($id = 'current')
     {
@@ -109,6 +110,15 @@ class Comic
         echo $this->alt_title;
     }
 
+    public function display_name()
+    {
+        if (is_null($this->name))
+        {
+            $this->fetch();
+        }
+        echo $this->name;
+    }
+
     /********************************
      * If you don't already got it, *
      * get it from the database!    *
@@ -123,23 +133,22 @@ class Comic
         if (!$link) { exit; }
         if (!mysql_select_db(common_config('database','name'))) { exit; }
 
-        $query = "SELECT newspost, alt_title FROM comic WHERE id = $this->id";
+        $query = "SELECT newspost, alt_title, name FROM comic WHERE id = $this->id";
         $result = mysql_query($query);
 
         // debug log? 
         if(!$result) { exit; }
 
-        if(mysql_num_rows($result) == 0)
+        if(mysql_num_rows($result) == 0 || $this->id > $this->current)
         {
             $this->newspost = '';
             $this->alt_title = '';
-        } else if ($this->id <= $this->current) {
+            $this->name = '';
+        } else {
             $line = mysql_fetch_assoc($result);
             $this->newspost = stripslashes($line['newspost']);
             $this->alt_title = stripslashes($line['alt_title']);
-        } else {
-            $this->newspost = '';
-            $this->alt_title = '';
+            $this->name = stripslashes($line['name']);
         }
 
         mysql_free_result($result);
