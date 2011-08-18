@@ -22,6 +22,7 @@ class Comic
     // TODO: add hooks here for object initialization stuff
     function __construct($id = 'current')
     {
+	common_initialize_plugins();
         $this->id = $id;
         $this->current = (int) common_currentid();
         $this->resolve_id();

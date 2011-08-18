@@ -11,6 +11,39 @@ include(TURNIPDIR . '/turnip_config.php');
 
 // TODO: initialize plugins, add hook functions
 
+function common_initialize_plugins()
+{
+   $plugins = common_config('plugins', 'files', array());
+   foreach ($plugins as $value) {
+       include(TURNIPDIR . '/plugins/' . $value);
+   }
+}
+
+function common_set_hook($hook_main, $hook_sub, $handler)
+{
+   global $hooks;
+   $hooks[$hook_main][$hook_sub][] = $handler;
+}
+
+function common_run_hooks($hook_main, $hook_sub,  $args=array())
+{
+    global $hooks;
+    $result = null;
+
+    if (array_key_exists($hook_main, $hooks) && 
+        array_key_exists($hook_sub, $hooks[$hook_main])) 
+    {
+        foreach ($hooks[$hook_main][$hook_sub] as $handler) {
+            $result = call_user_func_array($handler, $args);
+            if ($result === false) {
+                break;
+            }
+        }
+    }
+
+    return ($result !== false);
+}
+
 /***********************************
  * Return a config value from the  *
  * category and property it's      *
