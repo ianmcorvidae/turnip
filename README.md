@@ -17,7 +17,11 @@ USAGE
 When you'd like to upload a comic:
 
 1. Upload the image file to your comic directory
-2. Insert a line into the database table with everything you want, using whichever tool you like. Using SQL, something like: `INSERT INTO comic (name, newspost, alt_title, filename, date) VALUES ('some awesome name', 'hey look, a newspost', 'here\'s what\'ll go in the title tag', 'comic0567.png', '2099-07-18');`
+2. Insert a line into the database table with everything you want, using whichever tool you like. Using SQL, something like: 
+
+    ```sql
+    INSERT INTO comic (name, newspost, alt_title, filename, date) VALUES ('some awesome name', 'hey look, a newspost', 'here\'s what\'ll go in the title tag', 'comic0567.png', '2099-07-18');
+    ```
 3. Profit!
 
 CONFIGURATION OPTIONS
