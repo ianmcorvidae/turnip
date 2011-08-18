@@ -46,16 +46,22 @@ if (common_php_date($line['date']) > time())
 } else {
     $file = common_config('comic', 'directory') . '/' . $line['filename'];
     if (file_exists($file)) {
-        header('Content-Type: application/octet-stream');
+	// yes, this is janky, but unless weird filenames are being used it'll work
+        header('Content-Type: image/' . array_pop(preg_split('/\./', $line['filename'])));
+	// gets rid of any preceding directories
+        header('Content-Disposition: filename=' . array_pop(preg_split('/\//', $line['filename'])));
         header('Content-Transfer-Encoding: binary');
-        header('Expires: 0');
-        header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
-        header('Pragma: public');
+	$hash = sha1_file($file);
+	header('ETag: ' . $hash);
+	// below: that's one month, in seconds
+        header('Cache-Control: public, max-age=' . common_config('comic', 'cache time', '2592000'));
         header('Content-Length: ' . filesize($file));
         ob_clean();
         flush();
+	// actually read out the file
         readfile($file);
-        exit;}
+	exit;
+    }
 }
 
 mysql_free_result($result);
