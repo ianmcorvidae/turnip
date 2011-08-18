@@ -19,14 +19,13 @@ class Comic
 
     private $current = null;
 
-    // TODO: add hooks here for object initialization stuff
     function __construct($id = 'current')
     {
 	common_initialize_plugins();
         $this->id = $id;
         $this->current = (int) common_currentid();
         $this->resolve_id();
-	common_run_hooks('main', 'construct', array($id));
+	common_run_hooks('main', 'construct', array(&$this, $id));
     }
     
     /*******************************************
@@ -86,7 +85,7 @@ class Comic
                 return sprintf(common_config('comic','previous'), 
                                $this->current);
             }
-        } else {
+        } else if (common_run_hooks('main', 'ret', array(&$this, $something))) {
             if (is_null($this->$something))
             {
                 $this->fetch();
@@ -109,8 +108,14 @@ class Comic
         if (!$link) { exit; }
         if (!mysql_select_db(common_config('database','name'))) { exit; }
 
-        $query = "SELECT name, newspost, alt_title, filename, date " . 
-                 "FROM comic WHERE id = " . $this->id;
+        $columns = array('name', 'newspost', 'alt_title', 'filename', 'date');
+        $tables = array('comic');
+	$wheres = array('id = ' . $this->id);
+	common_run_hooks('main','fetch_query', array(&$this, &$columns, &$tables, &$wheres));
+
+        $query = "SELECT " . implode(' ,', $columns) .
+		 " FROM " . implode(' ', $tables) . 
+		 " WHERE " . implode(' ', $wheres) . ';';
         $result = mysql_query($query);
 
         // debug log? 
@@ -123,6 +128,7 @@ class Comic
             $this->alt_title = '';
             $this->filename = '';
             $this->date = '';
+	    common_run_hooks('main', 'fetch_result', array(&$this, null));
         } else {
             $line = mysql_fetch_assoc($result);
 
@@ -131,6 +137,7 @@ class Comic
             $this->alt_title = stripslashes($line['alt_title']);
             $this->filename = stripslashes($line['alt_title']);
             $this->date = $line['date'];
+	    common_run_hooks('main', 'fetch_result', array(&$this, $line));
         }
 
         mysql_free_result($result);
