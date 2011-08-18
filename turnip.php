@@ -26,6 +26,7 @@ class Comic
         $this->id = $id;
         $this->current = (int) common_currentid();
         $this->resolve_id();
+	common_run_hooks('main', 'construct', array($id));
     }
     
     /*******************************************
