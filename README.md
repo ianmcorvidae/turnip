@@ -10,6 +10,8 @@ Set up your MySQL (currently the only supported database, sorry D:), after creat
 
 USAGE
 =====
+`comic.php.example` and `index.php.example` provide examples of how to use turnip to include comics/newsposts/etc. into your page. turnip doesn't provide this for you - you provide your own web design! In short, you should include `turnip.php`, wherever you put it, and then initialize a new comic by something like `$comic = new Comic($id);`, presuming you have the variable `$id` already set for you. If you don't include `$id` or something in its place, it'll show the most recent comic - this is probably what you want your index page to do. If this sounds daunting, don't fear: `comic.php.example` shows probably the easiest thing to do, which is to grab the ID from the URL of the page by way of `$_GET['id']`. The configuration options in turnip_config.php.example assume you're doing something like this. 
+
 When you'd like to upload a comic:
 
 1. Upload the image file to your comic directory
