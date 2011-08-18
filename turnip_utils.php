@@ -23,7 +23,8 @@ function common_config($main,$sub,$default = false)
 {
     global $config;
     return (array_key_exists($main,$config) && 
-            array_key_exists($sub,$config[$main])) ? $config[$main][$sub] : $default;
+            array_key_exists($sub,$config[$main])) ? 
+                $config[$main][$sub] : $default;
 }
 
 /*******************************
@@ -33,7 +34,7 @@ function common_config($main,$sub,$default = false)
  */
 function common_sql_date($datetime)
 {
-    return strftime('%Y-%m-%d',$datetime);
+    return strftime('%Y-%m-%d', $datetime);
 }
 
 /*******************************
@@ -60,30 +61,19 @@ function common_currentid()
         common_config('database','user'),
         common_config('database','password'));
 
-    if (!$link)
+    if (!$link || !mysql_select_db(common_config('database', 'name')))
     {
-        header('HTTP/1.0 500 Internal Server Error');
-        exit;
+        return 0;
     }
 
-    if (!mysql_select_db(common_config('database','name')))
-    {
-        header('HTTP/1.0 500 Internal Server Error');
-        exit;
-    }
-    $query = "SELECT id FROM comic WHERE date <= '" . common_sql_date(time()) . "' ORDER BY id DESC LIMIT 1;";
+    $query = "SELECT id FROM comic WHERE date <= '" . 
+             common_sql_date(time()) . 
+             "' ORDER BY id DESC LIMIT 1;";
     $result = mysql_query($query);
 
-    if(!$result)
+    if(!$result || mysql_num_rows($result) == 0)
     {
-        header('HTTP/1.0 500 Internal Server Error');
-        exit;
-    }
-
-    if (mysql_num_rows($result) == 0)
-    {
-        header('HTTP/1.0 500 Internal Server Error');
-        exit;
+        return 0;
     }
 
     $line = mysql_fetch_assoc($result);

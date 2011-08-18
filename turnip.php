@@ -75,7 +75,8 @@ class Comic
             if (common_config('comic', 'use index for current', true)) {
                 return common_config('comic','current');
             } else {
-                return sprintf(common_config('comic','previous'), $this->current);
+                return sprintf(common_config('comic','previous'), 
+                               $this->current);
             }
         } else {
             if (is_null($this->$something))
@@ -100,7 +101,8 @@ class Comic
         if (!$link) { exit; }
         if (!mysql_select_db(common_config('database','name'))) { exit; }
 
-        $query = "SELECT name, newspost, alt_title, filename, date FROM comic WHERE id = $this->id";
+        $query = "SELECT name, newspost, alt_title, filename, date " . 
+                 "FROM comic WHERE id = " . $this->id;
         $result = mysql_query($query);
 
         // debug log? 
