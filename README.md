@@ -13,8 +13,8 @@ See the section below on configuration options for details of what each option
 should contain.
 
 Set up your MySQL (currently the only supported database, sorry D:), after 
-creating a database, by running turnip_setup.sql or otherwise creating a table 
-to the following specification:
+creating a database, by running `turnip_setup.sql` or otherwise creating a 
+table to the following specification:
 
 ```sql
 CREATE TABLE comic (id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(255), 
