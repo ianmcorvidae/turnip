@@ -9,6 +9,8 @@ define('TURNIPDIR', dirname(__FILE__));
 
 include(TURNIPDIR . '/turnip_config.php');
 
+// TODO: initialize plugins, add hook functions
+
 /***********************************
  * Return a config value from the  *
  * category and property it's      *

@@ -19,6 +19,7 @@ class Comic
 
     private $current = null;
 
+    // TODO: add hooks here for object initialization stuff
     function __construct($id = 'current')
     {
         $this->id = $id;
@@ -41,16 +42,21 @@ class Comic
 
     // COMIC DISPLAY
 
-    /****************************************
-     * Print a URL to be used in an img     *
-     * src attribute, to display the comic. *
-     * Or, display whatever else you want.  *
-     ****************************************/
+    /*****************************************
+     * Display whatever you need to display. *
+     * With no argument, defaults to 'comic' *
+     *****************************************/
     public function display($something = 'comic')
     {
         echo $this->ret($something);
     }
 
+    /********************************************
+     * Return something to be used or displayed *
+     * With no argument, defaults to 'comic'    *
+     ********************************************/
+    // TODO: refactor to use some sort of hook rather than hardcoded cases
+    // TODO: add hooks to existing options so they can be customized
     public function ret($something = 'comic')
     {
         if ($something == 'comic') {
@@ -87,10 +93,10 @@ class Comic
         }
     }
 
-    /********************************
-     * If you don't already got it, *
-     * get it from the database!    *
-     ********************************/
+    /**********************************************************
+     * If you don't already got it, get it from the database! *
+     **********************************************************/
+    // TODO: add hooks for changing query and for using the query result
     private function fetch()
     {
         $link = mysql_connect(common_config('database','host'),
