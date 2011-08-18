@@ -71,7 +71,7 @@ function common_currentid()
         header('HTTP/1.0 500 Internal Server Error');
         exit;
     }
-    $query = "SELECT id FROM comic WHERE date <= '" . common_sql_date(time()) . "'ORDER BY id DESC LIMIT 1;";
+    $query = "SELECT id FROM comic WHERE date <= '" . common_sql_date(time()) . "' ORDER BY id DESC LIMIT 1;";
     $result = mysql_query($query);
 
     if(!$result)
