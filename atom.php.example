@@ -1,0 +1,46 @@
+<?php header('Content-Type: application/atom+xml; charset=utf-8');
+     include('./turnip/turnip.php'); 
+     $current = new Comic(); 
+     $current_id = $current->ret('id');
+
+     $feed = simplexml_load_string('
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <title />
+    <link rel="self" />
+    <updated />
+    <author><name /></author>
+    <id />
+</feed>
+');
+     $feed->title = 'my fancy comic feed';
+     $feed->link['href'] = $feed->id = 'http://' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
+     $feed->updated = date(DATE_ATOM, strtotime($current->ret('date')));
+     $feed->author->name = 'John Foobar Doe';
+
+     $feed = dom_import_simplexml($feed);
+     $dom = $feed->ownerDocument;
+
+     $entries = array();
+     while ($current_id > 0 && count($entries) < 10) {
+         $this_entry = simplexml_load_string('<entry>
+         <link rel="alternate" type="text/html"/>
+         <id />
+         <title />
+         <updated />
+         <content type="html" />
+</entry>');
+         $this_comic = new Comic($current_id--);
+         $this_link = 'http://' . $_SERVER['SERVER_NAME'] . sprintf(common_config('comic', 'previous'), $this_comic->ret('id'));
+
+         $this_entry->link->addAttribute('href', $this_link);
+         $this_entry->id = $this_link;
+         $this_entry->title = $this_comic->ret('name') . ' (comic number ' . $this_comic->ret('id') . ')';
+         $this_entry->updated = date(DATE_ATOM, strtotime($this_comic->ret('date')));
+         $this_entry->content = "<h1>" . $this_comic->ret('name') . "</h1><h2>comic number ". $this_comic->ret('id') . "</h2><img src='http://" . $_SERVER['SERVER_NAME'] . $this_comic->ret() . "'></img><p>" . $this_comic->ret('newspost') . "</p>";
+         
+         $entries[] = $this_entry;
+         $feed->appendChild($dom->importNode(dom_import_simplexml($this_entry), true));
+     }
+
+     echo simplexml_import_dom($feed)->asXML();
+?>
