@@ -30,6 +30,7 @@ function common_run_hooks($hook_main, $hook_sub,  $args=array())
     global $hooks;
     $result = null;
 
+    if (!$hooks) { return true; }
     if (array_key_exists($hook_main, $hooks) && 
         array_key_exists($hook_sub, $hooks[$hook_main])) 
     {
