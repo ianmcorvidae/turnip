@@ -1,6 +1,6 @@
 <?php
 # Copyright © 2010-2011, Ian McEwen and Eliza Gebow
-# All rights reserved.
+# All rights reserved. Licensed under the terms of the 3-clause BSD License.
 #
 # See the file LICENSE for further conditions
 
