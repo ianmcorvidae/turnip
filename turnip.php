@@ -67,7 +67,9 @@ class Comic
      ******************************************************/
     public function ret_formatted_date($format)
     {
-        return DateTime::createFromFormat('Y-m-d', $this->ret('date'))->format($format);
+	return strftime($format, strtotime($this->ret('date')))
+        #PHP 5.3        
+        #return DateTime::createFromFormat('Y-m-d', $this->ret('date'))->format($format);
     }
 
     /********************************************
