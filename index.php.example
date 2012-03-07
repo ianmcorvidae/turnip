@@ -10,6 +10,7 @@
 <a href="<?php $comic->display('nav_next'); ?>">Next</a>
 <a href="<?php $comic->display('nav_last'); ?>">Current</a>
 </div>
+<h2><?php $comic->display_formatted_date('F j, Y'); ?></h2>
 <p>
 <?php $comic->display('newspost'); ?>
 </p>

@@ -36,7 +36,7 @@
          $this_entry->id = $this_link;
          $this_entry->title = $this_comic->ret('name') . ' (comic number ' . $this_comic->ret('id') . ')';
          $this_entry->updated = date(DATE_ATOM, strtotime($this_comic->ret('date')));
-         $this_entry->content = "<h1>" . $this_comic->ret('name') . "</h1><h2>comic number ". $this_comic->ret('id') . "</h2><img src='http://" . $_SERVER['SERVER_NAME'] . $this_comic->ret() . "'></img><p>" . $this_comic->ret('newspost') . "</p>";
+         $this_entry->content = "<h1>" . $this_comic->ret('name') . "</h1><h2>comic number ". $this_comic->ret('id') . ": " . $this_comic->ret_formatted_date('F j, Y') . "</h2><img src='http://" . $_SERVER['SERVER_NAME'] . $this_comic->ret() . "'></img><p>" . $this_comic->ret('newspost') . "</p>";
          
          $entries[] = $this_entry;
          $feed->appendChild($dom->importNode(dom_import_simplexml($this_entry), true));

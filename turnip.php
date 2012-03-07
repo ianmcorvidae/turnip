@@ -52,6 +52,24 @@ class Comic
         echo $this->ret($something);
     }
 
+    /*******************************************************
+     * Display a date passed through DateTime->format with *
+     * the provided format string.                         *
+     *******************************************************/
+    public function display_formatted_date($format)
+    {
+        echo $this->ret_formatted_date($format);
+    }
+
+    /******************************************************
+     * Return a date passed through DateTime->format with *
+     * the provided format string.                        *
+     ******************************************************/
+    public function ret_formatted_date($format)
+    {
+        return DateTime::createFromFormat('Y-m-d', $this->ret('date'))->format($format);
+    }
+
     /********************************************
      * Return something to be used or displayed *
      * With no argument, defaults to 'comic'    *
